@@ -1,5 +1,5 @@
----
-title: "おっほほほほ"
----
+# QSS練習問題
 
-Kei Satoぢゃ
+## 5章
+
+- - [5.5.3のhtmlファイル](qss/chapter5/elections/elections.html)
