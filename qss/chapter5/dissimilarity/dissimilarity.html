@@ -20,14 +20,11 @@
 	<div class="scianimator"><div id="Rplot" style="display: inline-block;"></div></div>
 	<div class="scianimator" style="width: 480px; text-align: left"><pre><code class="r">## Animations generated in R version 3.6.3 (2020-02-29)
 ##   using the package animation
-library(qss)
-library(ineq)
 library(animation)
+library(ineq)
 library(maps)
-library(devtools)
-library(usethis)
+library(qss)
 library(patchwork)
-library(magrittr)
 library(forcats)
 library(stringr)
 library(dplyr)
@@ -37,23 +34,22 @@ library(tidyr)
 library(tibble)
 library(ggplot2)
 library(tidyverse)
+library(magrittr)
+library(knitr)
 for (i in 1:14) {
     map(database = "state")
     for (j in 1:48) {
         map(database = "state", regions = as.character(dissimilarity_all_list[[i]]$state[j]), 
-            fill = TRUE, add = TRUE, col = rgb(blue = 0.75 - 
-              dissimilarity_all_list[[i]]$dissimilarity[j], 
-              green = 0.75 - dissimilarity_all_list[[i]]$dissimilarity[j], 
-              red = 0.75 - dissimilarity_all_list[[i]]$dissimilarity[j]))
+            fill = TRUE, add = TRUE, col = grey(dissimilarity_all_list[[i]]$dissimilarity[j]))
     }
     title(as.character(1956 + i * 4))
 }
 ## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
-## Other packages: qss 0.1.0.9000, ineq 0.2-13, animation 2.6, maps
-## 3.3.0, devtools 2.3.0, usethis 1.6.1, patchwork 1.0.0, magrittr 1.5,
-## forcats 0.5.0, stringr 1.4.0, dplyr 1.0.0, purrr 0.3.4, readr 1.3.1,
-## tidyr 1.1.0, tibble 3.0.1, ggplot2 3.3.1, tidyverse 1.3.0</code></pre></div>
+## Other packages: animation 2.6, ineq 0.2-13, maps 3.3.0, qss
+## 0.1.0.9000, patchwork 1.0.0, forcats 0.5.0, stringr 1.4.0, dplyr
+## 1.0.0, purrr 0.3.4, readr 1.3.1, tidyr 1.1.0, tibble 3.0.1, ggplot2
+## 3.3.1, tidyverse 1.3.0, magrittr 1.5, knitr 1.29</code></pre></div>
 	<script src="js/Rplot.js"></script>
 <!-- highlight R code -->
 
