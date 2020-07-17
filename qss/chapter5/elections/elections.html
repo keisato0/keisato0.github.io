@@ -46,6 +46,7 @@ for (i in 1:length(elections_year_list)) {
             col = rgb(red = tentative$rep_ratio[j], blue = tentative$dem_ratio[j], 
               green = 0), add = TRUE, fill = TRUE)
     }
+    title(as.character(1956 + i * 4))
 }
 ## R version 3.6.3 (2020-02-29)
 ## Platform: x86_64-apple-darwin15.6.0 (64-bit)
