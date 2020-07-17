@@ -40,7 +40,7 @@ for (i in 1:14) {
     map(database = "state")
     for (j in 1:48) {
         map(database = "state", regions = as.character(dissimilarity_all_list[[i]]$state[j]), 
-            fill = TRUE, add = TRUE, col = grey(dissimilarity_all_list[[i]]$dissimilarity[j]))
+            fill = TRUE, add = TRUE, col = grey(1 - dissimilarity_all_list[[i]]$dissimilarity[j]))
     }
     title(as.character(1956 + i * 4))
 }
