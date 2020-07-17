@@ -2,4 +2,4 @@
 
 ## 5章
 
-- - [5.5.3のhtmlファイル](qss/chapter5/elections/elections.html)
+- [5.5.3のhtmlファイル](qss/chapter5/elections/elections.html)
