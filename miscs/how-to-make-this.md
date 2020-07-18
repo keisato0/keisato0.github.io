@@ -33,7 +33,7 @@ $ git push origin master
 
 ## GitHub Pagesの設定を確認
 
-GitHubのリポジトリページからSettingsを開くと下の方にGitHub Pagesという項目がある。うまくいってれば，自動的に`https:〇〇.github.io`のアドレスでページが公開されている旨が案内されているのでそれを確かめる。
+GitHubのリポジトリページからSettingsを開くと下の方にGitHub Pagesという項目がある。うまくいってれば，自動的に`https://〇〇.github.io`のアドレスでページが公開されている旨が案内されているのでそれを確かめる。
 
 ## ページを開いてみる
 
