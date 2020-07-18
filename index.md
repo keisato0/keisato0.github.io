@@ -4,6 +4,8 @@
 
 - [RPubs](https://rpubs.com/keisato)[^1]
 
+- [京都の写真](pics/pics.md)
+
   ---
 
   [^1]: 今後は更新しないかも(2020年7月18日)
