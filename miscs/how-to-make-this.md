@@ -1,8 +1,11 @@
----
-author: 俺
----
-
 # 備忘録：このサイトのつくり方
+
+2020年7月18日しるす
+
+## ググる
+
+[github.ioを使ってMySiteを作ろう
+](https://qiita.com/MokeeeMokeee/items/4b33691b829aaf119bbf)というページが見つかったのでこれにしたがって作っていく。
 
 ## GitHubでリポジトリを作る
 
@@ -57,7 +60,7 @@ $ git remote add origin https://github.com/〇〇/〇〇.github.io.git
 
 の2行がないが，前者は現在のディレクトリにGitのローカルリポジトリをつくるというコマンド，後者はリモートリポジトリとして`https://github.com/〇〇/〇〇.github.io.git`を指定するコマンドなので，一度きりでよいということのようだ。
 
-ということで，`add`，`commit`，`push`の3つが基本的なコマンドとなる。これらがどういう意味かは，[「Git 仕組み 図解」](https://www.google.com/search?q=git+%E4%BB%95%E7%B5%84%E3%81%BF+%E5%9B%B3%E8%A7%A3&tbm=isch&ved=2ahUKEwisrY3w6dbqAhUQB5QKHViZD8wQ2-cCegQIABAA&oq=git+%E4%BB%95%E7%B5%84%E3%81%BF&gs_lcp=CgNpbWcQARgBMgIIADICCAAyBAgAEBgyBAgAEBgyBAgAEBg6BAgAEAQ6BggAEAQQGFDwD1iQFmCwIWgAcAB4AIABkwKIAcwJkgEFMS4zLjOYAQCgAQGqAQtnd3Mtd2l6LWltZ8ABAQ&sclient=img&ei=Y-4SX-zvFJCO0ATYsr7gDA&bih=797&biw=1440)などのワードでググったらなんとなくわかった。
+ということで，`add`，`commit`，`push`の3つが基本的なコマンドとなる。これらがどういう意味かは，[Gitではじめるバージョン管理 〜ローカルリポジトリでファイルを管理してみよう〜](https://www.hivelocity.co.jp/blog/34777/)というページを読んだらなんとなくわかった。
 
 ## テーマの設定
 
@@ -65,7 +68,7 @@ $ git remote add origin https://github.com/〇〇/〇〇.github.io.git
 
 Jekyllのテーマは，リモートリポジトリ内の.htmlファイルではなく.mdファイルに自動的に反映される(.htmlファイルに反映させることも可能)。なので，index.htmlを削除して，index.mdというファイルを用意して適当に一言二言書き，`push`までやりきってみる。すると，トップページにindex.mdの内容が表示され，しかもなんかいい感じのMinimalテーマにしたがっていることがわかる。
 
-もちろんテーマもカスタマイズできる。各テーマが解説サイトをもっているので，そこの指示を読めばよい。私はデフォルトで表示されるようになっていたGitHubページへのリンクなどを消した。
+もちろんテーマもカスタマイズできる。各テーマが解説サイト(例：[Minimal](https://github.com/pages-themes/minimal))をもっているので，そこの指示を読めばよい。私はデフォルトで表示されるようになっていたGitHubページへのリンクなどを消した。
 
 ## 更新
 
@@ -88,3 +91,6 @@ $ git pull
 ```
 
 でリモートリポジトリの変更をローカルリポジトリに反映させる。
+
+## 最後に
+なんか不正確なところがあるかもしれないが，今のところこれでできている。何か問題が起きたらもう少し勉強したい。
