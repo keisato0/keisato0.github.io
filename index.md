@@ -8,6 +8,8 @@
 
 - [備忘録：このサイトのつくり方](miscs/how-to-make-this.md)
 
+- [CSLスタイルファイル「Juris-Mで社会学評論」](jss-csl/jss-csl.md)
+
   ---
 
   [^1]: 今後は更新しないかも(2020年7月18日)
