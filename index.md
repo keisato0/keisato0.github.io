@@ -1,4 +1,4 @@
-## RやCSLなど
+# RやCSLなど
 
 - [CSLスタイルファイル「Juris-Mで社会学評論」](jss-csl/jss-csl.html)
   - Zoteroベースの文献管理ソフトJuris-Mで動く『社会学評論』風のスタイルファイルです
@@ -9,7 +9,7 @@
 
 
 
-## もろもろ
+# もろもろ
 
 - [このサイトのつくり方](miscs/how-to-make-this.md)
   - 備忘録として残しています
