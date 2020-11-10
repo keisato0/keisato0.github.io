@@ -996,6 +996,145 @@ R2 Adj.
 </table>
 <p>各関数の書き方についてはhelpを参照。</p>
 </div>
+<div id="glmでやろー" class="section level2">
+<h2>glmでやろー</h2>
+<p>二項ロジットモデルでやってみるよん</p>
+<pre class="r"><code>summary(df$wage)</code></pre>
+<pre><code>##     Min.  1st Qu.   Median     Mean  3rd Qu.     Max. 
+##    50.05   308.64   522.32   603.73   783.48 18777.20</code></pre>
+<pre class="r"><code>df &lt;- df %&gt;% 
+  mutate(high_wage = case_when(
+    wage &lt; 800 ~ 0,
+    800 &lt;= wage ~ 1,
+    TRUE ~ NA_real_
+  ))
+
+glm_model1 &lt;- glm(formula = high_wage ~ education, family = binomial(), data = df)
+glm_model2 &lt;- update(object = glm_model1, formula. = . ~ . + ethnicity)
+
+glm_result &lt;- list()
+glm_result[[&quot;Model 1&quot;]] &lt;- glm_model1
+glm_result[[&quot;Model 2&quot;]] &lt;- glm_model2
+
+msummary(glm_result, stars = T, gof_map = gof_df,
+         gof_omit = &quot;R2&quot;)</code></pre>
+<table class="table" style="width: auto !important; margin-left: auto; margin-right: auto;">
+<thead>
+<tr>
+<th style="text-align:left;">
+</th>
+<th style="text-align:center;">
+Model 1
+</th>
+<th style="text-align:center;">
+Model 2
+</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:left;">
+(Intercept)
+</td>
+<td style="text-align:center;">
+-5.002***
+</td>
+<td style="text-align:center;">
+-4.886***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.084)
+</td>
+<td style="text-align:center;">
+(0.085)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+education
+</td>
+<td style="text-align:center;">
+0.284***
+</td>
+<td style="text-align:center;">
+0.280***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+<td style="text-align:center;">
+(0.006)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+ethnicityafam
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+-0.904***
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+</td>
+<td style="text-align:center;">
+</td>
+<td style="text-align:center;">
+(0.072)
+</td>
+</tr>
+<tr>
+<td style="text-align:left;">
+Num.Obs.
+</td>
+<td style="text-align:center;">
+28155
+</td>
+<td style="text-align:center;">
+28155
+</td>
+</tr>
+</tbody>
+<tfoot>
+<tr>
+<td style="padding: 0; border:0;" colspan="100%">
+<sup></sup> * p &lt; 0.1, ** p &lt; 0.05, *** p &lt; 0.01
+</td>
+</tr>
+</tfoot>
+</table>
+<pre class="r"><code>how_many_models &lt;- length(glm_result)
+nagel &lt;- rep(NA, how_many_models)
+for (i in 1:how_many_models) {
+  nagel[i] &lt;- DescTools::PseudoR2(glm_result[[i]], &quot;Nagel&quot;) 
+}
+print(round(nagel, digits = 3))</code></pre>
+<pre><code>## [1] 0.136 0.145</code></pre>
+<p>まあええんとちゃいますか。</p>
+<p>上のコードを一般化させて、疑似決定係数Nagelkerke <span class="math inline">\(R^2\)</span>を出力する関数もつくってみた</p>
+<pre class="r"><code>nagels &lt;- function(regression_list){ # 回帰モデルのリストを引数に
+  how_many_models &lt;- length(regression_list) # 回帰モデルの数
+  nagel &lt;- rep(NA, how_many_models) # Nagelkerke R^2 出力用のベクトル準備
+  
+  for (i in 1:how_many_models) {
+    nagel[i] &lt;- DescTools::PseudoR2(glm_result[[i]], &quot;Nagel&quot;)
+    }
+  print(round(nagel, digits = 3)) # 小数点以下第3位まで表示
+}
+
+nagels(glm_result)</code></pre>
+<pre><code>## [1] 0.136 0.145</code></pre>
+</div>
 
 
 

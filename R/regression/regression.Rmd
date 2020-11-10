@@ -57,3 +57,54 @@ msummary(result, stars = T, gof_map = gof_df)
 ```
 
 各関数の書き方についてはhelpを参照。
+
+## glmでやろー
+
+二項ロジットモデルでやってみるよん
+
+```{r}
+summary(df$wage)
+
+df <- df %>% 
+  mutate(high_wage = case_when(
+    wage < 800 ~ 0,
+    800 <= wage ~ 1,
+    TRUE ~ NA_real_
+  ))
+
+glm_model1 <- glm(formula = high_wage ~ education, family = binomial(), data = df)
+glm_model2 <- update(object = glm_model1, formula. = . ~ . + ethnicity)
+
+glm_result <- list()
+glm_result[["Model 1"]] <- glm_model1
+glm_result[["Model 2"]] <- glm_model2
+
+msummary(glm_result, stars = T, gof_map = gof_df,
+         gof_omit = "R2")
+
+how_many_models <- length(glm_result)
+nagel <- rep(NA, how_many_models)
+for (i in 1:how_many_models) {
+  nagel[i] <- DescTools::PseudoR2(glm_result[[i]], "Nagel") 
+}
+print(round(nagel, digits = 3))
+```
+
+まあええんとちゃいますか。
+
+上のコードを一般化させて、疑似決定係数Nagelkerke $R^2$を出力する関数もつくってみた
+
+```{r}
+nagels <- function(regression_list){ # 回帰モデルのリストを引数に
+  how_many_models <- length(regression_list) # 回帰モデルの数
+  nagel <- rep(NA, how_many_models) # Nagelkerke R^2 出力用のベクトル準備
+  
+  for (i in 1:how_many_models) {
+    nagel[i] <- DescTools::PseudoR2(glm_result[[i]], "Nagel")
+    }
+  print(round(nagel, digits = 3)) # 小数点以下第3位まで表示
+}
+
+nagels(glm_result)
+```
+
