@@ -1,5 +1,6 @@
 ---
-title: ""
+title: "写真"
+author: "(C) 佐藤慧 2021"
 output: 
   html_document:
     toc: true
@@ -10,7 +11,7 @@ output:
 ---
 ---
 
-<p align="center"><b>深呼吸して、</b><br><b>きれいな写真でも眺めてはいかが？</b></p>
+<p align="center">深呼吸して、<br>きれいな写真でも眺めてはいかが？</p>
 
 ---
 
