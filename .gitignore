@@ -1,7 +1,7 @@
 .DS__Store
 
-who-am-i/
+/who-am-i/
 
-pics/Pictures.Rproj
+/pics/Pictures.Rproj
 
-pics/*.R
+/pics/*.R
