@@ -6,11 +6,11 @@ output:
     toc_float: true
     toc_collapsed: true
     theme: darkly
-    highlight: zenburn
+    highlight: tango
 ---
 ---
 
-<p align="center">**深呼吸して、きれいな写真でも眺めてはいかが？**</p>
+<p align="center"><b>深呼吸して、</b><br><b>きれいな写真でも眺めてはいかが？</b></p>
 
 ---
 
