@@ -7,3 +7,5 @@
 /pics/*.R
 
 .Rhistory
+
+.Rmd
