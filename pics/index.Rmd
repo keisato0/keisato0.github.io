@@ -1,5 +1,5 @@
 ---
-title: "これが私のインスタグラム"
+title: "写真"
 author: "(C) 佐藤慧 2021"
 output: 
   html_document:
