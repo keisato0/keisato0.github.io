@@ -1,5 +1,12 @@
 # 脳内で流れている音楽
 
-- 2021年2月22日現在、The Brand New HeaviesのSpend Some TimeやKeep Together、World Keeps Spinningなどが脳内で流れています。最高です👴
+- 22nd Feb 2021
+	- The Brand New Heavies - Spend Some Time, Keep Together, World Keeps Spinning
+	- Daft Punk - Around The World
 
-- 2021年2月22日、Daft Punkが解散してしまいましたね😢。喪の作業としてAround The Worldを繰り返し聴いています。
+- 23rd Feb 2021
+	- Rollercoaster - In Everyday Matters
+	- Yerin Baek - tellusboutyourself
+	- The Brand New Heavies - Brother Sister
+	- Young Disciples - Road to Freedom
+	- BOL4 - Filmlet 
