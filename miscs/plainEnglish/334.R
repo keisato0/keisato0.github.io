@@ -32,4 +32,4 @@ for (i in 1:length(firstWords)) {
 table <- data.frame(firstWords, sentences)
 body <- knitr::kable(table, format = "markdown", col.names = c("First Two Words", "Sentence"))
 title <- "## [Plain English Lesson 334](https://PlainEnglish.com/334/)"
-cat(title, body, file = str_c("lesson/", lessonNum, ".md"), fill = TRUE)
+cat(title, body, sep = "\n", file = str_c("lesson/", lessonNum, ".md"), fill = TRUE)
