@@ -31,5 +31,5 @@ for (i in 1:length(firstWords)) {
 # output ------------------------------------------------------------------
 table <- data.frame(firstWords, sentences)
 body <- knitr::kable(table, format = "markdown", col.names = c("First Two Words", "Sentence"))
-title <- "## [Plain English Lesson 334](https://PlainEnglish.com/334/)"
+title <- "## [Plain English Lesson 334](https://PlainEnglish.com/number/334/)"
 cat(title, "\n", body, file = str_c("lesson/", lessonNum, ".md"), fill = TRUE)
