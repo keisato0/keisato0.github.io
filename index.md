@@ -9,4 +9,4 @@
 - 燕来軒
  - 読んだ論文紹介のページになるはず -->
 
-SATO Kei's Website
+Kei Sato
