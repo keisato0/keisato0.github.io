@@ -33,7 +33,7 @@ PETable <- function(lessonNum) {
   body <- knitr::kable(table, format = "markdown", col.names = c("First Two Words", "Sentence"))
   title <- str_c("## [Plain English Lesson ", lessonNum, "](https://PlainEnglish.com/",
                  lessonNum, "/)")
-  cat(title, body, sep = "/n", file = str_c("lesson/", lessonNum, ".md"), fill = TRUE)
+  cat(title, "\n", body, file = str_c("lesson/", lessonNum, ".md"), fill = TRUE)
 }
 
 # PETable(lessonNum = 299)
