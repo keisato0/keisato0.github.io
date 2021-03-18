@@ -18,7 +18,8 @@ script[1] <- script[1] %>% str_c(., ".")
 allInOne <- script %>% str_c(collapse = " ")
 sentences <- tokenizers::tokenize_sentences(allInOne)
 sentences <- sentences[[1]]
-
+sentences[4] <- str_c(sentences[4], sentences[5], sep = " ")
+sentences <- sentences[-5]
 
 # split each sentence by word ---------------------------------------------
 words <- str_split(sentences, pattern = "[\x20\t]+")

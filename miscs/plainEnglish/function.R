@@ -35,6 +35,7 @@ PETable <- function(lessonNum) {
                  lessonNum, "/)")
   cat(title, "\n", body, file = str_c("lesson/", lessonNum, ".md"), fill = TRUE)
 }
+
 # PETable(lessonNum = 299)
 
 multiPETable <- function(lessonNums){
