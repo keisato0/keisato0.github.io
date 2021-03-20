@@ -31,7 +31,7 @@ PETable <- function(lessonNum) {
   # output ------------------------------------------------------------------
   table <- data.frame(firstWords, sentences)
   body <- knitr::kable(table, format = "markdown", col.names = c("First Two Words", "Sentence"))
-  title <- str_c("## [Plain English Lesson ", lessonNum, "](https://PlainEnglish.com/number/",
+  title <- str_c("## Plain English Lesson [", lessonNum, "](https://PlainEnglish.com/number/",
                  lessonNum, "/)")
   cat(title, "\n", body, file = str_c("lesson/", lessonNum, ".md"), fill = TRUE)
 }
