@@ -9,7 +9,8 @@ seasonal <- function(year, season) {
 
   if (num_pics == 0) {
     cat("これから追加されます", "\n\n", sep = "")
-  } else {
+  }
+  else {
     # キャプション
     all_caption <- read_tsv(str_c("caption/", year, ".txt"))
     seasonal_caption <-
