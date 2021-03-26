@@ -11,21 +11,20 @@ seasonal <- function(year, season) {
     cat("これから追加されます", "\n\n", sep = "")
   } else {
     # キャプション
-    caption <- read_tsv(str_c("caption/", year, ".txt"))
-    caption_by_season <- caption %>% dplyr::filter(when == season)
-    caption_by_season <- caption_by_season$caption
+    all_caption <- read_tsv(str_c("caption/", year, ".txt"))
+    seasonal_caption <-
+      all_caption %>% dplyr::filter(when == season) %>% pull(caption)
 
+    # 写真をキャプション付きで吐き出す
     pics_vector <- rep(NA, times = num_pics)
     for (i in 1:num_pics) {
       pics_vector[i] <- str_c(
-          "![", year, "_", season, "_", i, "](../pics/",
-          year, "/", season, "_", i, ".jpg)"
+        "![", year, "_", season, "_", i, "](../pics/",
+        year, "/", season, "_", i, ".jpg)"
         )
       cat(
-        pics_vector[i],
-        "\n",
-        caption_by_season[i],
-        "\n\n",
+        pics_vector[i], "\n",
+        seasonal_caption[i], "\n\n",
         sep = ""
       )
     }
@@ -33,17 +32,17 @@ seasonal <- function(year, season) {
 }
 
 # seasonal()をもとに特定年の写真とキャプションを見出しつきで吐き出す
+
+seasons_numeric <- c("1-3", "4-6", "7-9", "10-12")
+seasons_character <- c("winter", "spring", "summer", "fall")
 annual <- function(what_year) {
-  cat(
-    cat("## 1-3", "\n\n", sep = ""),
-    seasonal(what_year, "winter"),
-    cat("## 4-6", "\n\n", sep = ""),
-    seasonal(what_year, "spring"),
-    cat("## 7-9", "\n\n", sep = ""),
-    seasonal(what_year, "summer"),
-    cat("## 10-12", "\n\n", sep = ""),
-    seasonal(what_year, "fall")
+  for (i in 1:4) {
+    cat(
+      cat(str_c("##", seasons_numeric[i], sep = " "), "\n\n", sep = ""),
+      seasonal(what_year, seasons_character[i]),
+      sep = ""
     )
+  }
 }
 
 # リンクなどもつけたフルmdコードを吐き出し、ファイルに保存する
@@ -57,27 +56,27 @@ md_generate <- function(year) {
     )
 
     # 見出しなど前段
-    cat(str_c("#", year, sep = " "))
-    cat("\n\n")
-    cat(str_c(sum_of_pics, "枚あります。",
-      "[写真トップページ](https://keisato0.github.io/pics/)へ"))
-    cat("\n\n")
     cat(
-      "- [1-3](#1-3)",
-      "- [4-6](#4-6)",
-      "- [7-9](#7-9)",
-      "- [10-12](#10-12)",
-      sep = "\n"
+      str_c("#", year, sep = " "), "\n\n",
+      str_c(sum_of_pics, "枚あります。",
+        "[写真トップページ](https://keisato0.github.io/pics/)へ"), "\n\n",
+      "- [1-3](#1-3)", "\n",
+      "- [4-6](#4-6)", "\n",
+      "- [7-9](#7-9)", "\n",
+      "- [10-12](#10-12)", "\n\n",
+      sep = ""
     )
-    cat("\n")
 
     # annualを実行し本文部分を生成
     annual(year)
 
     # 後段
-    cat("---", "\n", str_c("[このページのトップ](#", year, ")へ"), "\n\n",
-    "[写真トップ](https://keisato0.github.io/pics/)へ", sep = "")
-    cat("\n")
+    cat(
+      "---", "\n",
+      str_c("[このページのトップ](#", year, ")へ"), "\n\n",
+      "[写真トップ](https://keisato0.github.io/pics/)へ", "\n",
+      sep = ""
+    )
 
   sink()
 }
@@ -88,5 +87,7 @@ multiple_md_generate <- function(years) {
     md_generate(i)
   }
 }
+
+md_generate(2018)
 
 multiple_md_generate(2018:2021)
