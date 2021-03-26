@@ -81,6 +81,7 @@ md_generate <- function(year) {
   sink()
 }
 
+md_generate(2018)
 md_generate(2019)
 md_generate(2020)
 md_generate(2021)
