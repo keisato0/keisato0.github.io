@@ -21,7 +21,7 @@ seasonal <- function(year, season) {
     for (i in 1:num_pics) {
       pics_vector[i] <- str_c(
         "![", year, "_", season, "_", i, "](../pics/",
-        year, "/", season, "_", i, ".jpg)"
+        year, "/", season, "_", i, ".jpg)  "
         )
       cat(
         pics_vector[i], "\n",
@@ -89,6 +89,5 @@ multiple_md_generate <- function(years) {
   }
 }
 
-md_generate(2018)
-
-multiple_md_generate(2018:2021)
+multiple_md_generate(2017)
+multiple_md_generate(2017:2021)
