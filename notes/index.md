@@ -1,4 +1,4 @@
-# notes
+# Notes
 
 - [英語](English/plainEnglish/plainEnglish.md)
 - [雑記](miscs/index.md)
