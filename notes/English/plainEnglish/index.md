@@ -1,4 +1,4 @@
-## [Plain English](https://PlainEnglish.com/) Lessons
+# [Plain English](https://PlainEnglish.com/) Lessons
 
 - [301](lesson/301.md)
 - [302](lesson/302.md)
