@@ -1,12 +1,13 @@
 # Plain Englishのスクリプトを読みやすくする
 
-- [Plain Englishのスクリプトを読みやすくしたい](#plain-englishのスクリプトを読みやすくしたい)
-- [目標](#目標)
-- [ワークフロー](#ワークフロー)
-- [Rコード](#rコード)
-  - [指定した単一レッスンのスクリプトを吐き出す関数](#指定した単一レッスンのスクリプトを吐き出す関数)
-  - [指定した複数レッスンのスクリプトを吐き出す関数](#指定した複数レッスンのスクリプトを吐き出す関数)
-- [出来上がり](#出来上がり)
+- [Plain Englishのスクリプトを読みやすくする](#plain-englishのスクリプトを読みやすくする)
+  - [Plain Englishのスクリプトを読みやすくしたい](#plain-englishのスクリプトを読みやすくしたい)
+  - [目標](#目標)
+  - [ワークフロー](#ワークフロー)
+  - [Rコード](#rコード)
+    - [指定した単一レッスンのスクリプトを吐き出す関数](#指定した単一レッスンのスクリプトを吐き出す関数)
+    - [指定した複数レッスンのスクリプトを吐き出す関数](#指定した複数レッスンのスクリプトを吐き出す関数)
+  - [出来上がり](#出来上がり)
 
 ## Plain Englishのスクリプトを読みやすくしたい
 
@@ -42,50 +43,58 @@
 ### 指定した単一レッスンのスクリプトを吐き出す関数
 
 ```R
-PETable <- function(lessonNum) {
+library(magrittr)
+library(tidyverse)
+library(rvest)
 
-  # レッスンの紹介ページをスクレイプ -----------------------------------------------------------------
-  library(rvest)
-  frontPageURL <- str_c("https://plainenglish.com/number/", lessonNum, "/")
-  frontPageHTML <- read_html(frontPageURL)
-  
+pe_table <- function(lesson_num) {
+  # preface --------------------------------
+  front_page_url <- str_c("https://plainenglish.com/number/", lesson_num, "/")
+  front_page_html <- read_html(front_page_url)
 
-  # スクリプトページへのリンクを得る -----------------------------------------------------------------
-  link <- "/html/body/div[1]/div/div/div/div/div/section[2]/div/div/div/div/div/div[2]/div/div/article/div/a/@href" # XPathはあらかじめ調べておいた
-  scriptPageURL <- html_nodes(frontPageHTML, xpath = link) %>% html_text()
-  
+  link <- "/html/body/div[1]/div/div/div/
+    div/div/section[2]/div/div/div/div/
+    div/div[2]/div/div/article/div/a/@href"
+  script_page_url <-
+    html_nodes(front_page_html, xpath = link) %>% html_text()
+  script_page_html <- read_html(script_page_url)
 
-  # スクリプトページをスクレイプ -----------------------------------------------------------------
-  scriptPageHTML <- read_html(scriptPageURL)
-  scriptRaw <- "/html/body/div[1]/div/div/div/div/main/div/div/section[5]/div/div/div/div/div/section/div/div/div[1]/div/div/div[2]/div/div/div/div[2]/div[1]/p" # 同上
-  script <- html_nodes(scriptPageHTML, xpath = scriptRaw) %>% html_text()
-  
-  
-  # スクレイプして得られたスクリプトを整形 -----------------------------------------------------------------
-  
-    # 1文を1要素とする文字列ベクトルの作成 ---------------------------------------------
-    script[1] <- script[1] %>% str_c(., ".") # 最初の1文は見出しで、カンマがないのでつける。この時点では1段落を1要素とする文字列ベクトル
-    allInOne <- script %>% str_c(collapse = " ") # 次行の関数を使うため、全要素を1要素に詰め込んだ文字列ベクトルを作る
-    sentences <- tokenizers::tokenize_sentences(allInOne) # 文章ごとに分ける。これ、正規表現でやろうとすると案外むずい。関数があってよかった
-    sentences <- sentences[[1]] # 返り値がリストなので、必要な情報だけ取って文字列ベクトルにする
-  
+  script_raw <- "/html/body/div[1]/div/
+    div/div/div/main/div/div/section[5]/
+    div/div/div/div/div/section/div/
+    div/div[1]/div/div/div[2]/div/div/
+    div/div[2]/div[1]/p"
 
-    # 各文の最初の2語だけを取得して文字列ベクトルに ---------------------------------------------
-    # すでに目的は達成されているのだが、各文の最初の2語だけを各文の隣に表示させてみたい。最初の2語だけ見て全文がいえるくらいになっていたら、他のスピーキングの場面にも応用が利きそうだ。
-  
-    words <- str_split(sentences, pattern = "[\x20\t]+") # 空白で分ける。返り値はリスト
-    firstWords <- rep(NA, length(words)) # 各文の最初の2語の文字列を入れておく文字列ベクトルを用意
-    for (i in 1:length(firstWords)) { # 各文の最初の2語の文字列を取得してベクトルに入れる
-        firstWords[i] <- str_c(words[[i]][1:2], collapse = " ")
-    }
-  
 
-  # .mdでの書き出し ------------------------------------------------------------------
-  table <- data.frame(firstWords, sentences) # df化しておく
-  body <- knitr::kable(table, format = "markdown", col.names = c("First Two Words", "Sentence"))
-  title <- str_c("## Plain English Lesson [", lessonNum, "](https://PlainEnglish.com/number/",
-                 lessonNum, "/)") # 題名もつけてみる
-  cat(title, "\n", body, file = str_c("lesson/", lessonNum, ".md"), fill = TRUE) # cat()で書き出す
+  # content ------------------------------
+  script <- html_nodes(script_page_html, xpath = script_raw) %>% html_text()
+  script[1] <- script[1] %>% str_c(., ".")
+
+  all_in_one <- script %>% str_c(collapse = " ")
+  sentences <- tokenizers::tokenize_sentences(all_in_one)
+  sentences <- sentences[[1]]
+
+
+  # split each sentence by word -------
+  words <- str_split(sentences, pattern = "[\x20\t]+")
+  first_words <- rep(NA, length(words))
+  for (i in 1:length(first_words)) {
+    first_words[i] <- str_c(words[[i]][1:2], collapse = " ")
+  }
+
+
+  # output ----------------------------
+  table <- data.frame(first_words, sentences)
+  body <- knitr::kable(
+    table, format = "markdown",
+    col.names = c("First Two Words", "Sentence"))
+  title <- str_c(
+    "# Plain English Lesson [",
+    lesson_num, "](https://PlainEnglish.com/number/",
+    lesson_num, "/)")
+  cat(title, "\n", body,
+    file = str_c("lesson/", lesson_num, ".md"),
+    fill = TRUE)
 }
 ```
 
@@ -94,9 +103,9 @@ PETable <- function(lessonNum) {
 上の関数`PETable()`を繰り返し適用することで、複数レッスンのスクリプトを取得できるようにしたのが次の`multiPETable()`だ。
 
 ```R
-multiPETable <- function(lessonNums){
-  for (i in lessonNums) {
-    PETable(lessonNum = i)
+multi_pe_table <- function(lesson_nums) {
+  for (i in lesson_nums) {
+    pe_table(lesson_num = i)
   }
 }
 ```
@@ -109,7 +118,7 @@ multiPETable(lessonNums = 301:346)
 
 を実行して、とりあえずレッスン301から346までつくってみた。
 
-仕上がりのページでどういう感じになっているかは[ここ](https://keisato0.github.io/miscs/plainEnglish)をチェックだ。
+仕上がりのページでどういう感じになっているかは[**ここ**](https://keisato0.github.io/miscs/plainEnglish)をチェックだ。
 
 ちなみに上のページの、各レッスンのスクリプトへのリンクは次のようなループでつくって.mdファイルにコピペした。
 
