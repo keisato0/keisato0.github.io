@@ -118,7 +118,7 @@ multiPETable(lessonNums = 301:346)
 
 を実行して、とりあえずレッスン301から346までつくってみた。
 
-仕上がりのページでどういう感じになっているかは[**ここ**](https://keisato0.github.io/miscs/plainEnglish)をチェックだ。
+仕上がりのページでどういう感じになっているかは[**ここ**](https://keisato0.github.io/miscs/plainEnglish/index.md)をチェックだ。
 
 ちなみに上のページの、各レッスンのスクリプトへのリンクは次のようなループでつくって.mdファイルにコピペした。
 
