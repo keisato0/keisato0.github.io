@@ -7,7 +7,7 @@ spring	お墓の中に何が入ってるのか気になる神武天皇陵
 spring	はあそうですか
 spring	左の人がヤバい＠山辺の道
 summer	祇園祭
-summer	仰せの通りに止まりました
+summer	仰せの通りに
 summer	カボチャ供養なるイベントに行きました
 summer	かなり独特な味のカボチャをくれた
 summer	姫路城
