@@ -4,16 +4,49 @@ raw1 <- googlesheets4::read_sheet(
     ss = "1OAs2rP2Pk8HAayDsIGd3OBTvTMM6ILm5pwIDwoN7vNE")
 raw2 <- googlesheets4::read_sheet(
   ss = "11COq7xUknJvjA7Hh3LI7Mcko34UyNxFNY3hjreHdSAs")
-df <- bind_rows(raw1, raw2) %>% 
+raw3 <- googlesheets4::read_sheet(
+  ss = "1UnMbDk_HzL27VbhmGbE0IE5ll15RK7iGDemT0ENAPwQ")
+raw4 <- googlesheets4::read_sheet(
+  ss = "1i81LmXblOq0qNslen76Fvpgc_MMKFRI6SAsxyOfcUQ4")
+raw5 <- googlesheets4::read_sheet(
+  ss = "1IaX9TlbQEKf3c08HpdZpOID0IVE-66IbKIYUTD5Fcns")
+df <- bind_rows(raw1, raw2, raw3, raw4, raw5) %>% 
   dplyr::filter(status == "played") %>% 
   select(-status, -album) %>% 
   mutate(date = lubridate::date(date))
 
-march <- df %>% 
+result <- list()
+result[["march"]] <- df %>% 
   dplyr::filter("2021-03-01" <= date & date <= "2021-03-31")
+result[["april"]] <- df %>% 
+  dplyr::filter("2021-04-01" <= date & date <= "2021-04-30")
+result[["may"]] <- df %>% 
+  dplyr::filter("2021-05-01" <= date & date <= "2021-05-31")
+result[["june"]] <- df %>% 
+  dplyr::filter("2021-06-01" <= date)
 
-min(march$date)
-max(march$date)
+spotify_table <- function(df) {
+  df %>%
+    group_by(track, artist) %>%
+    summarise(n = n()) %>%
+    arrange(desc(n)) %>% 
+    dplyr::filter(10 <= n)
+}
+
+date_table <- function(df) {
+  df %>% 
+    group_by(date) %>%
+    summarise(n = n()) %>%
+    arrange(desc(n))
+}
+
+arranged_result <- map(result, spotify_table)
+
+map(arranged_result, knitr::kable)
+# date_result <- map(result, date_table)
+# View(date_result$may)
+
+map(result, nrow)
 
 march %>% 
   ggplot(mapping = aes(x = date)) +
